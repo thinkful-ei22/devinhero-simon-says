@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, View,  ScrollView, Image, Text, TouchableOpacity  ,  Alert } from 'react-native';
+import { StyleSheet, View,  Text, TouchableOpacity  ,  Alert } from 'react-native';
 
 export default class Button extends React.Component {
   constructor(props){
@@ -17,26 +17,31 @@ export default class Button extends React.Component {
                 
               }}
             >
-              <Text>{color}</Text>
+              <Text style={{textAlign: 'center'}}>{color}</Text>
             </TouchableOpacity >
           </View>
     );
   }
 }
 
+const buttonAbsPosDist = 15;
 const styles = StyleSheet.create({
   buttonContainer: {
     position: 'absolute',
+    borderColor: 'black',
+    borderWidth: 1,
+    borderRadius: 20,
+    overflow: 'hidden',
     height: 150,
     width: 150,
   },
   touchable:{
-    height: 150,
-    width: 150
+    height: '100%',
+    width: '100%',
   },
   green: {
-    top: 10,
-    left: 10,
+    top: buttonAbsPosDist,
+    left: buttonAbsPosDist,
     backgroundColor: '#55AA55'
   },
   greenUnlit:{
@@ -44,8 +49,8 @@ const styles = StyleSheet.create({
   },
   
   red: {
-    top: 10,
-    right: 10,
+    top: buttonAbsPosDist,
+    right: buttonAbsPosDist,
     backgroundColor: '#CC3333'
   },
   redUnlit:{
@@ -53,8 +58,8 @@ const styles = StyleSheet.create({
   },
 
   yellow: {
-    bottom: 10,
-    left: 10,
+    bottom: buttonAbsPosDist,
+    left: buttonAbsPosDist,
     backgroundColor: '#D9E21D'
   },
   yellowUnlit:{
@@ -62,8 +67,8 @@ const styles = StyleSheet.create({
   },
 
   blue:{
-    bottom: 10,
-    right: 10,
+    bottom: buttonAbsPosDist,
+    right: buttonAbsPosDist,
     backgroundColor: '#7777DD'
   },
   blueUnlit:{
