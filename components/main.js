@@ -21,6 +21,10 @@ export class Main extends React.Component {
           <Text>Simon Says</Text>
         </View>
         <GameBoard/>
+        <Text>Green: {this.props.colors.green}</Text>
+        <Text>Red: {this.props.colors.red}</Text>
+        <Text>Yellow: {this.props.colors.yellow}</Text>
+        <Text>Blue: {this.props.colors.blue}</Text>
       </View>
     );
   }
@@ -36,13 +40,8 @@ const styles = StyleSheet.create({
 });
 
 const mapStateToProps = state => {
-  // let storedRepositories = state.repos.map(repo => ({ key: repo.id, ...repo }));
-  // return {
-  //   repos: storedRepositories
-  // };
   return{
-    testState: state
-    // colors: state.game.colors
+    colors: state.colors
   };
 };
 

@@ -10,7 +10,6 @@ const initialState = {
   isSimonReadingSequence: false,
   isItemLit: false,
 
-
   //for early testing purposes
   colors:{
     green: 0,
@@ -24,12 +23,13 @@ export function gameReducer(state=initialState, action){
   let newColors = {...state.colors};
   
   switch(action.type){
-
     case INCREMENT_COLOR:
       newColors[action.color]++;
-      
       return {...state,
               colors: newColors
       }
+
+    default:
+      return state;
   }
 }

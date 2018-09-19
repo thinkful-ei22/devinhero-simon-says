@@ -1,7 +1,10 @@
 import React from 'react';
 import { StyleSheet, View,  Text, TouchableOpacity  ,  Alert } from 'react-native';
 
-export default class Button extends React.Component {
+import {incrementColor} from '../actions/game';
+import {connect} from 'react-redux';
+
+export class Button extends React.Component {
   constructor(props){
     super(props);
   }
@@ -15,7 +18,7 @@ export default class Button extends React.Component {
             <TouchableOpacity  
               style={[styles.touchable, unlit]}
               onPress={() =>{
-                
+                this.props.incrementColor(color);
               }}
             >
               <Text style={{textAlign: 'center'}}>{color}</Text>
@@ -75,5 +78,16 @@ const styles = StyleSheet.create({
   blueUnlit:{
     backgroundColor: '#333366'
   }
-
 });
+
+const mapStateToProps = state => {
+  return{
+    colors: state.colors
+  };
+};
+
+const mapDispatchToProps = {
+  incrementColor
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Button);
