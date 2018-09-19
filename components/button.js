@@ -8,11 +8,12 @@ export default class Button extends React.Component {
 
   render() {
     const color = this.props.color;
-    const unlit = `${color}Unlit`;
+    const unlit = styles[`${color}Unlit`];
+    
     return (
           <View style={[styles.buttonContainer, styles[color]]}>
             <TouchableOpacity  
-              style={[styles.touchable, styles[unlit]]}
+              style={[styles.touchable, unlit]}
               onPress={() =>{
                 
               }}

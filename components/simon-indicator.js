@@ -11,7 +11,7 @@ export default class SimonIndicator extends React.Component{
     // const litStatus = styles.simonLit;
 
     let simonText = 'Simon\nSays...';
-    simonText = 'Your\nTurn!';
+    // simonText = 'Your\nTurn!';
 
 
     return(
