@@ -1,12 +1,28 @@
 import React from 'react';
 import { StyleSheet, View,  Text, TouchableOpacity  ,  Alert } from 'react-native';
 
-import {incrementColor} from '../actions/game';
+import {
+  endGame,
+  dequeueSequenceBuffer
+} from '../actions/game';
+
 import {connect} from 'react-redux';
+
 
 export class Button extends React.Component {
   constructor(props){
     super(props);
+  }
+
+  userInput(color){
+    console.log('COLOR!', color);
+    console.log('BUFFA!', this.props.nextItem);
+    console.log('Is correct? ', color === this.props.nextItem);
+    if(color === this.props.nextItem){
+      this.props.dequeueSequenceBuffer();
+    }else{
+      this.props.endGame();
+    }
   }
 
   render() {
@@ -18,7 +34,8 @@ export class Button extends React.Component {
             <TouchableOpacity  
               style={[styles.touchable, unlit]}
               onPress={() =>{
-                // this.props.incrementColor(color);
+                if(this.props.gameStart && this.props.isPlayerTurn)
+                  this.userInput(color);
               }}
             >
               <Text style={{textAlign: 'center'}}>{color}</Text>
@@ -82,12 +99,15 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = state => {
   return{
-    // colors: state.colors
+    gameStart: state.gameStart,
+    isPlayerTurn: !state.isSimonReadingSequence,
+    nextItem: state.sequenceBuffer.front(),
   };
 };
 
 const mapDispatchToProps = {
-  // incrementColor
+  endGame,
+  dequeueSequenceBuffer
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Button);

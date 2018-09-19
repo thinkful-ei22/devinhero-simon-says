@@ -8,17 +8,16 @@ import {
   refreshSequenceBuffer,
   dequeueSequenceBuffer
 } from '../actions/game';
-import {gameReducer} from '../reducers/game';
 import {connect} from 'react-redux';
 
 export class Main extends React.Component {
   constructor(props){
     super(props);
-    this.state={
-    };
+    
   }
 
   render() {
+    console.log('\n\n========================================\n');
     console.log('Hello squirrels');
     console.log(this.props);
     return (
@@ -27,7 +26,7 @@ export class Main extends React.Component {
           <Text>Simon Says</Text>
         </View>
         <Button 
-          title='Reset'
+          title='New Game'
           onPress={()=>{
             this.props.resetGame();
           }}
@@ -73,7 +72,9 @@ const styles = StyleSheet.create({
 const mapStateToProps = state => {
   return{
     sequence: state.sequence.viewQueue(),
-    buffer: state.sequenceBuffer.viewQueue()
+    seqBuffer: state.sequenceBuffer.viewQueue(),
+    gameStart: state.gameStart,
+    gameLost: state.gameLost
   };
 };
 

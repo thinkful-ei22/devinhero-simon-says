@@ -2,6 +2,7 @@ import Queue from '../utils/queue';
 
 import {
   RESET_GAME,
+  END_GAME,
   ADD_SEQUENCE_ITEM,
   REFRESH_SEQUENCE_BUFFER,
   DEQUEUE_SEQUENCE_BUFFER
@@ -9,6 +10,7 @@ import {
 
 const initialState = {
   gameStart: false,
+  gameLost: false,
   
   sequence: new Queue(),
   sequenceBuffer: new Queue(),
@@ -32,8 +34,16 @@ export function gameReducer(state=initialState, action){
         newSequenceBuffer.enqueue(colorChoices[idx]);
       }
       return {...state,
+        gameStart: true,
+        gameLost: false,
         sequence: newSequence,
         sequenceBuffer: newSequenceBuffer
+      }
+
+    case END_GAME:
+      return {...state,
+              gameStart: false,
+              gameLost: true
       }
 
     case ADD_SEQUENCE_ITEM:

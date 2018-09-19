@@ -1,18 +1,27 @@
 import React from 'react';
 import { StyleSheet, View, Text } from 'react-native';
+import {connect} from 'react-redux';
 
-export default class SimonIndicator extends React.Component{
+export class SimonIndicator extends React.Component{
   constructor(props){
     super(props);
   }
 
   render(){
-    const litStatus = styles.simonUnlit;
-    // const litStatus = styles.simonLit;
+    const litStatus = this.props.gameStart
+      ? styles.simonLit
+      : styles.simonUnlit;
 
-    let simonText = 'Simon\nSays...';
-    // simonText = 'Your\nTurn!';
-
+    let simonText = '';
+    if(this.props.gameLost){
+      simonText = 'Game Over!';
+    }else if(!this.props.gameStart){
+      simonText = 'Press\nNew\nGame';
+    }else if(this.props.isSimonReading){
+      simonText = 'Simon\nSays...';
+    }else{
+      simonText = 'Your\nTurn!';
+    }
 
     return(
       <View style={[styles.simonIndicator, litStatus]}>
@@ -38,9 +47,20 @@ const styles = StyleSheet.create({
     backgroundColor: '#88570D',
   },
   simonLit: {
-    backgroundColor: '#DDAF38'
+    backgroundColor: '#EEA62B'
   },
   simonText:{
     textAlign: 'center'
   }
 });
+
+const mapStateToProps = state => {
+  return{
+    gameStart: state.gameStart,
+    gameLost: state.gameLost,
+    isSimonReading: state.isSimonReadingSequence,
+    sequenceBuffer: state.sequenceBuffer
+  };
+};
+
+export default connect(mapStateToProps)(SimonIndicator);
