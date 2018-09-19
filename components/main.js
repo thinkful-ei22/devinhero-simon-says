@@ -1,7 +1,13 @@
 import React from 'react';
-import { StyleSheet, View, Text,} from 'react-native';
+import { StyleSheet, View, Text, Button} from 'react-native';
 import GameBoard from './game-board';
 
+import {
+  resetGame,
+  addSequenceItem,
+  refreshSequenceBuffer,
+  dequeueSequenceBuffer
+} from '../actions/game';
 import {gameReducer} from '../reducers/game';
 import {connect} from 'react-redux';
 
@@ -20,11 +26,36 @@ export class Main extends React.Component {
         <View>
           <Text>Simon Says</Text>
         </View>
+        <Button 
+          title='Reset'
+          onPress={()=>{
+            this.props.resetGame();
+          }}
+        />
         <GameBoard/>
-        <Text>Green: {this.props.colors.green}</Text>
-        <Text>Red: {this.props.colors.red}</Text>
-        <Text>Yellow: {this.props.colors.yellow}</Text>
-        <Text>Blue: {this.props.colors.blue}</Text>
+        <Button 
+          title='Add Item'
+          onPress={()=>{
+            this.props.addSequenceItem();
+            this.props.refreshSequenceBuffer();
+          }}
+        />
+
+        <Button 
+          title='Refresh Buffer'
+          onPress={()=>{
+            this.props.refreshSequenceBuffer();
+          }}
+        />
+
+        <Button 
+          title='Dequeue Buffer'
+          onPress={()=>{
+            this.props.dequeueSequenceBuffer();
+          }}
+        />
+
+
       </View>
     );
   }
@@ -41,12 +72,16 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = state => {
   return{
-    colors: state.colors
+    sequence: state.sequence.viewQueue(),
+    buffer: state.sequenceBuffer.viewQueue()
   };
 };
 
 const mapDispatchToProps = {
-  gameReducer
+  resetGame,
+  addSequenceItem,
+  refreshSequenceBuffer,
+  dequeueSequenceBuffer
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Main);

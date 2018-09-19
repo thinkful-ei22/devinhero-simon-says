@@ -18,7 +18,7 @@ export class Button extends React.Component {
             <TouchableOpacity  
               style={[styles.touchable, unlit]}
               onPress={() =>{
-                this.props.incrementColor(color);
+                // this.props.incrementColor(color);
               }}
             >
               <Text style={{textAlign: 'center'}}>{color}</Text>
@@ -82,12 +82,12 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = state => {
   return{
-    colors: state.colors
+    // colors: state.colors
   };
 };
 
 const mapDispatchToProps = {
-  incrementColor
+  // incrementColor
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Button);
