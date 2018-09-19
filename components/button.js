@@ -27,7 +27,9 @@ export class Button extends React.Component {
 
   render() {
     const color = this.props.color;
-    const unlit = styles[`${color}Unlit`];
+    let unlit = '';
+    if(color !== this.props.litItem)
+      unlit = styles[`${color}Unlit`];
     
     return (
           <View style={[styles.buttonContainer, styles[color]]}>
@@ -102,6 +104,7 @@ const mapStateToProps = state => {
     gameStart: state.gameStart,
     isPlayerTurn: !state.isSimonReadingSequence,
     nextItem: state.sequenceBuffer.front(),
+    litItem: state.litItem
   };
 };
 

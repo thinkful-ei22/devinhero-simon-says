@@ -23,3 +23,9 @@ export const DEQUEUE_SEQUENCE_BUFFER = 'DEQUEUE_SEQUENCE_BUFFER';
 export const dequeueSequenceBuffer = () =>({
   type: DEQUEUE_SEQUENCE_BUFFER
 });
+
+export const SET_LIT_ITEM = 'SET_LIT_ITEM';
+export const setLitItem = color =>({
+  type: SET_LIT_ITEM,
+  color
+});

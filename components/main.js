@@ -17,9 +17,9 @@ export class Main extends React.Component {
   }
 
   render() {
-    console.log('\n\n========================================\n');
-    console.log('Hello squirrels');
-    console.log(this.props);
+    // console.log('\n\n========================================\n');
+    // console.log('Hello squirrels');
+    // console.log(this.props);
     return (
       <View style={styles.container}> 
         <View>

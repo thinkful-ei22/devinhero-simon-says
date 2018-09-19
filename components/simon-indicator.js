@@ -8,19 +8,26 @@ export class SimonIndicator extends React.Component{
   }
 
   render(){
-    const litStatus = this.props.gameStart
-      ? styles.simonLit
-      : styles.simonUnlit;
+    let litStatus;
+    const lit = styles.simonLit;
+    const unlit = styles.simonUnlit;
+    // = this.props.gameStart
+    //   ? styles.simonLit
+    //   : styles.simonUnlit;
 
     let simonText = '';
     if(this.props.gameLost){
       simonText = 'Game Over!';
+      litStatus = unlit;
     }else if(!this.props.gameStart){
       simonText = 'Press\nNew\nGame';
+      litStatus = unlit;
     }else if(this.props.isSimonReading){
       simonText = 'Simon\nSays...';
+      litStatus = this.props.litItem ? lit : unlit;
     }else{
       simonText = 'Your\nTurn!';
+      litStatus = lit;
     }
 
     return(
@@ -58,6 +65,7 @@ const mapStateToProps = state => {
   return{
     gameStart: state.gameStart,
     gameLost: state.gameLost,
+    litItem: state.litItem,
     isSimonReading: state.isSimonReadingSequence,
     sequenceBuffer: state.sequenceBuffer
   };
