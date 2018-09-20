@@ -44,11 +44,12 @@ export class Button extends React.Component {
 }
 
 const buttonAbsPosDist = 15;
+const singleBorderRadius = 150;
 const styles = StyleSheet.create({
   buttonContainer: {
     position: 'absolute',
     borderColor: 'black',
-    borderWidth: 1,
+    borderWidth: 5,
     borderRadius: 20,
     overflow: 'hidden',
     height: 150,
@@ -61,6 +62,8 @@ const styles = StyleSheet.create({
   green: {
     top: buttonAbsPosDist,
     left: buttonAbsPosDist,
+    borderColor: '#112211',
+    borderTopLeftRadius: singleBorderRadius,
     backgroundColor: '#55AA55'
   },
   greenUnlit:{
@@ -70,6 +73,8 @@ const styles = StyleSheet.create({
   red: {
     top: buttonAbsPosDist,
     right: buttonAbsPosDist,
+    borderColor: '#221111',
+    borderTopRightRadius: singleBorderRadius,
     backgroundColor: '#CC3333'
   },
   redUnlit:{
@@ -79,6 +84,8 @@ const styles = StyleSheet.create({
   yellow: {
     bottom: buttonAbsPosDist,
     left: buttonAbsPosDist,
+    borderBottomLeftRadius: singleBorderRadius,
+    borderColor: '#232303',
     backgroundColor: '#D9E21D'
   },
   yellowUnlit:{
@@ -88,6 +95,8 @@ const styles = StyleSheet.create({
   blue:{
     bottom: buttonAbsPosDist,
     right: buttonAbsPosDist,
+    borderBottomRightRadius: singleBorderRadius,
+    borderColor: '#111133',
     backgroundColor: '#7777DD'
   },
   blueUnlit:{

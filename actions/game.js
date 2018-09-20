@@ -7,7 +7,7 @@ export const resetGame = () =>({
 export const BEGIN_GAME = 'BEGIN_GAME';
 export const beginGame = () =>({
   type: BEGIN_GAME
-})
+});
 
 export const END_GAME = 'END_GAME';
 export const endGame = () =>({

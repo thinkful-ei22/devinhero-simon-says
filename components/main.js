@@ -19,13 +19,21 @@ export class Main extends React.Component {
 
     return (
       <View style={styles.container}> 
-        <View>
+        <View style={styles.containerChild}>
           <Text>Simon Says</Text>
         </View>
-        <NewGameButton/>
-        <GameBoard/>
-        <Text>Current Score: {this.props.curScore}</Text>
-        <Text>Max Score: {this.props.maxScore}</Text>
+        <View style={styles.containerChild}>
+          <NewGameButton/>
+        </View>
+        <View style={styles.containerChild}>
+          <GameBoard/>
+        </View>
+        <View>
+          <View style={styles.scoreboard}>
+            <View><Text>Score: {this.props.curScore}</Text></View>
+            <View><Text>Best: {this.props.maxScore}</Text></View>
+          </View>
+        </View>
       </View>
     );
   }
@@ -37,6 +45,13 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  scoreboard: {
+    flexDirection: 'row',
+    // justifyContent: 'space-between'
+  },
+  scoreboardItem:{
+    height: 20
   }
 });
 

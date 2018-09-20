@@ -14,7 +14,7 @@ export class SimonIndicator extends React.Component{
 
     let simonText = '';
     if(this.props.gameLost){
-      simonText = 'Game Over!';
+      simonText = 'Game\nOver!';
       litStatus = unlit;
     }else if(!this.props.gameStart){
       simonText = 'Press\nNew\nGame';
@@ -40,8 +40,8 @@ const styles = StyleSheet.create({
   simonIndicator: {
     height: 100,
     width: 100,
-    borderColor: 'black',
-    borderWidth: 1,
+    borderColor: '#442C06',
+    borderWidth: 3,
     borderRadius: 50,
     alignItems: 'center',
     justifyContent: 'center',
@@ -53,7 +53,10 @@ const styles = StyleSheet.create({
     backgroundColor: '#EEA62B'
   },
   simonText:{
-    textAlign: 'center'
+    color: '#442C06',
+    textAlign: 'center',
+    fontWeight: 'bold',
+    fontSize: 16
   }
 });
 

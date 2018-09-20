@@ -66,9 +66,11 @@ const styles = StyleSheet.create({
   gameBoard: {
     height: 350,
     width: 350,
-    backgroundColor: '#222222',
+    borderWidth: 5,
+    borderRadius: 150,
+    backgroundColor: '#333333',
     alignItems: 'center',
-    justifyContent: 'center'
+    justifyContent: 'center',
   }
 });
 
