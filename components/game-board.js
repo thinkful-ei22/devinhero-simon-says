@@ -3,41 +3,45 @@ import { StyleSheet, View } from 'react-native';
 import {connect} from 'react-redux';
 
 import {
+  setIsSimonReading,
+  refreshSequenceBuffer,
   dequeueSequenceBuffer,
   setLitItem,
+  unsetLitItemDequeueBuffer
 } from '../actions/game';
 
 import Button from './button';
 import SimonIndicator from './simon-indicator';
 
 export class GameBoard extends React.Component {
+
+
   componentDidUpdate(prevProps){
     if(this.props.gameStart){
-      if(this.props.isSimonReadingSequence && this.props.nextBufferItem){
+
+      if(!prevProps.isSimonReadingSequence && this.props.isSimonReadingSequence){
+        setTimeout(()=> this.props.refreshSequenceBuffer(), 200);
+      }else if(this.props.isSimonReadingSequence && this.props.nextBufferItem){
         //simon is currently repeating the sequence
         if(!this.props.litItem){
-          console.log('lighting...');
           const nextItem = this.props.nextBufferItem;
           setTimeout(()=> this.props.setLitItem(nextItem), 100);
         }else{
-          console.log('dimming...');
-          setTimeout(()=> {
-            this.props.dequeueSequenceBuffer();
-            this.props.setLitItem(null);
-          }, 550);
+          setTimeout(()=> this.props.unsetLitItemDequeueBuffer(), 550);
         }
       }else if(this.props.isSimonReadingSequence && !this.props.nextBufferItem){
         //simon set to repeat sequence, but has no more items. May need to wait for unlit to clear first
-        console.log('Out of stuff!');
         if(!this.props.litItem){
-          console.log('ready to set to userstate');
+          this.props.setIsSimonReading(false);
         }
-
       }
 
-      if(!this.props.isSimonReadingSequence && !this.props.nextBufferItem){
+      if(prevProps.isSimonReadingSequence && !this.props.isSimonReadingSequence){
+          this.props.refreshSequenceBuffer();
+      }
+      else if(!this.props.isSimonReadingSequence && !this.props.nextBufferItem){
         //currently set to user input, but user has repeated everything in buffer
-
+        this.props.setIsSimonReading(true);
       }
 
     }
@@ -75,6 +79,7 @@ const mapStateToProps = state => {
   return{
     isSimonReadingSequence: state.isSimonReadingSequence,
     sequence: state.sequence.viewQueue(),
+    sequenceBuffer: state.sequenceBuffer.viewQueue(),
     nextBufferItem: state.sequenceBuffer.front(),
     litItem: state.litItem,
     gameStart: state.gameStart,
@@ -83,8 +88,12 @@ const mapStateToProps = state => {
 };
 
 const mapDispatchToProps = {
+  setIsSimonReading,
+  refreshSequenceBuffer,
   dequeueSequenceBuffer,
-  setLitItem
+  setLitItem,
+  unsetLitItemDequeueBuffer
+  
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(GameBoard);

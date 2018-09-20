@@ -3,10 +3,12 @@ import Queue from '../utils/queue';
 import {
   RESET_GAME,
   END_GAME,
+  SET_IS_SIMON_READING,
   ADD_SEQUENCE_ITEM,
   REFRESH_SEQUENCE_BUFFER,
   DEQUEUE_SEQUENCE_BUFFER,
-  SET_LIT_ITEM
+  SET_LIT_ITEM,
+  UNSET_LIT_ITEM_DEQUEUE_BUFFER,
 } from '../actions/game';
 
 const initialState = {
@@ -26,6 +28,7 @@ export function gameReducer(state=initialState, action){
   let newSequenceBuffer= new Queue();
   let newSequenceItem =  colorChoices[Math.floor(Math.random() * colorChoices.length)];
 
+  console.log('Reducer received action: ', action.type);
   switch(action.type){
 
     case RESET_GAME:
@@ -38,13 +41,20 @@ export function gameReducer(state=initialState, action){
         gameStart: true,
         gameLost: false,
         sequence: newSequence,
-        sequenceBuffer: newSequenceBuffer
+        sequenceBuffer: newSequenceBuffer,
+        isSimonReadingSequence: true
       }
 
     case END_GAME:
       return {...state,
               gameStart: false,
               gameLost: true
+      }
+
+    case SET_IS_SIMON_READING:
+      console.log('XXXXXXXXXXX new isReading:', action.isReading)
+      return {...state,
+              isSimonReadingSequence: action.isReading
       }
 
     case ADD_SEQUENCE_ITEM:
@@ -72,7 +82,16 @@ export function gameReducer(state=initialState, action){
               litItem: action.color
       }
 
+    case UNSET_LIT_ITEM_DEQUEUE_BUFFER:
+      newSequenceBuffer.initFromArray(state.sequenceBuffer.viewQueue());
+      newSequenceBuffer.dequeue();
+      return {...state,
+              litItem: null,
+              sequenceBuffer: newSequenceBuffer
+      }
+
     default:
+      console.log('default');
       return state;
   }
 }

@@ -32,29 +32,6 @@ export class Main extends React.Component {
           }}
         />
         <GameBoard/>
-        <Button 
-          title='Add Item'
-          onPress={()=>{
-            this.props.addSequenceItem();
-            this.props.refreshSequenceBuffer();
-          }}
-        />
-
-        <Button 
-          title='Refresh Buffer'
-          onPress={()=>{
-            this.props.refreshSequenceBuffer();
-          }}
-        />
-
-        <Button 
-          title='Dequeue Buffer'
-          onPress={()=>{
-            this.props.dequeueSequenceBuffer();
-          }}
-        />
-
-
       </View>
     );
   }
