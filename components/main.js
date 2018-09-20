@@ -3,6 +3,7 @@ import { StyleSheet, View, Text, Button} from 'react-native';
 import GameBoard from './game-board';
 
 import {
+  endGame,
   resetGame,
   addSequenceItem,
   refreshSequenceBuffer,
@@ -17,9 +18,10 @@ export class Main extends React.Component {
   }
 
   render() {
-    // console.log('\n\n========================================\n');
-    // console.log('Hello squirrels');
-    // console.log(this.props);
+    console.log('\n\n========================================\n');
+    console.log('Hello squirrels');
+    console.log(this.props);
+
     return (
       <View style={styles.container}> 
         <View>
@@ -51,11 +53,14 @@ const styles = StyleSheet.create({
 const mapStateToProps = state => {
   return{
     curScore: state.curScore,
-    maxScore: state.maxScore
+    maxScore: state.maxScore,
+
+    everything: state
   };
 };
 
 const mapDispatchToProps = {
+  endGame,
   resetGame,
   addSequenceItem,
   refreshSequenceBuffer,

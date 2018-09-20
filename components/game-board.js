@@ -3,10 +3,10 @@ import { StyleSheet, View } from 'react-native';
 import {connect} from 'react-redux';
 
 import {
+  beginGame,
   setTurnSimon,
   setTurnPlayer,
   refreshSequenceBuffer,
-  dequeueSequenceBuffer,
   setLitItem,
   unsetLitItemDequeueBuffer
 } from '../actions/game';
@@ -18,7 +18,10 @@ export class GameBoard extends React.Component {
 
 
   componentDidUpdate(prevProps){
-    if(this.props.gameStart){
+
+    if(this.props.gameDidReset){
+      this.props.beginGame();
+    }else if(this.props.gameStart){
 
       //SIMON TURN
       if(!prevProps.isSimonReadingSequence && this.props.isSimonReadingSequence){
@@ -41,21 +44,16 @@ export class GameBoard extends React.Component {
 
       //USER TURN
       if(prevProps.isSimonReadingSequence && !this.props.isSimonReadingSequence){
-          this.props.refreshSequenceBuffer();
+        this.props.refreshSequenceBuffer();
       }
       else if(!this.props.isSimonReadingSequence && !this.props.nextBufferItem){
         //currently set to user input, but user has repeated everything in buffer
         this.props.setTurnSimon();
       }
-
     }
   }
 
   render() {
-    console.log('\n\n========================================\n');
-    console.log('Hello squirrels');
-    console.log(this.props);
-
     return (
       <View style={styles.gameBoard}>
         <Button color='green'/>
@@ -82,20 +80,19 @@ const styles = StyleSheet.create({
 const mapStateToProps = state => {
   return{
     isSimonReadingSequence: state.isSimonReadingSequence,
-    sequence: state.sequence.viewQueue(),
-    sequenceBuffer: state.sequenceBuffer.viewQueue(),
     nextBufferItem: state.sequenceBuffer.front(),
     litItem: state.litItem,
     gameStart: state.gameStart,
-    gameLost: state.gameLost
+    gameLost: state.gameLost,
+    gameDidReset: state.didReset
   };
 };
 
 const mapDispatchToProps = {
+  beginGame,
   setTurnSimon,
   setTurnPlayer,
   refreshSequenceBuffer,
-  dequeueSequenceBuffer,
   setLitItem,
   unsetLitItemDequeueBuffer
   

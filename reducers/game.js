@@ -2,6 +2,7 @@ import Queue from '../utils/queue';
 
 import {
   RESET_GAME,
+  BEGIN_GAME,
   END_GAME,
   SET_TURN_SIMON,
   SET_TURN_PLAYER,
@@ -16,6 +17,7 @@ import {
 const initialState = {
   gameStart: false,
   gameLost: false,
+  didReset: false,
 
   curScore: 0,
   maxScore: 0,
@@ -38,11 +40,13 @@ export function gameReducer(state=initialState, action){
   let newSequenceItem = {
     color: newItemColor,
     simonSaid: newItemSimonSaid
-  }  //colorChoices[Math.floor(Math.random() * colorChoices.length)];
+  }
   
   let newCurScore;
   let newMaxScore;
-  console.log('Reducer received action: ', action.type);
+
+  console.log('Encountered action: ', action.type)
+  
   switch(action.type){
 
     case RESET_GAME:
@@ -50,32 +54,22 @@ export function gameReducer(state=initialState, action){
       newSequence.enqueue(newSequenceItem);
       newSequenceBuffer.enqueue(newSequenceItem);
 
-      //FOR TESTING
-      let newSeq2 = {}
-      newSeq2.color = 'red';
-      newSeq2.simonSaid = false;
-      newSequence.enqueue(newSeq2);
-      newSequenceBuffer.enqueue(newSeq2);
-      
-      let newSeq3 = {}
-      newSeq3.color = 'green';
-      newSeq3.simonSaid = true;
-      newSequence.enqueue(newSeq3);
-      newSequenceBuffer.enqueue(newSeq3);
-      
-      
-
-
-      //
       return {...state,
-        gameStart: true,
+        gameStart: false,
         gameLost: false,
-        score: 0,
+        didReset: true,
+        curScore: 0,
         sequence: newSequence,
         sequenceBuffer: newSequenceBuffer,
         isSimonReadingSequence: true
       }
 
+    case BEGIN_GAME:
+      return {...state,
+        gameStart: true,
+        didReset: false
+      }
+    
     case END_GAME:
       return {...state,
               gameStart: false,

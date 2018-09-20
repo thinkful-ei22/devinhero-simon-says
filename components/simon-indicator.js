@@ -11,9 +11,6 @@ export class SimonIndicator extends React.Component{
     let litStatus;
     const lit = styles.simonLit;
     const unlit = styles.simonUnlit;
-    // = this.props.gameStart
-    //   ? styles.simonLit
-    //   : styles.simonUnlit;
 
     let simonText = '';
     if(this.props.gameLost){
@@ -37,9 +34,7 @@ export class SimonIndicator extends React.Component{
       </View>
     );
   }
-
 }
-
 
 const styles = StyleSheet.create({
   simonIndicator: {

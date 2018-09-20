@@ -4,6 +4,11 @@ export const resetGame = () =>({
   type: RESET_GAME
 });
 
+export const BEGIN_GAME = 'BEGIN_GAME';
+export const beginGame = () =>({
+  type: BEGIN_GAME
+})
+
 export const END_GAME = 'END_GAME';
 export const endGame = () =>({
   type: END_GAME
