@@ -1,9 +1,9 @@
 import React from 'react';
-import { StyleSheet, View,  Text, TouchableOpacity  ,  Alert } from 'react-native';
+import { StyleSheet, View, TouchableOpacity} from 'react-native';
 
 import {
   endGame,
-  dequeueSequenceBuffer
+  dequeueSequenceBufferToValid
 } from '../actions/game';
 
 import {connect} from 'react-redux';
@@ -15,11 +15,8 @@ export class Button extends React.Component {
   }
 
   userInput(color){
-    console.log('COLOR!', color);
-    console.log('BUFFA!', this.props.nextItem);
-    console.log('Is correct? ', color === this.props.nextItem);
-    if(color === this.props.nextItem){
-      this.props.dequeueSequenceBuffer();
+    if(color === this.props.nextItem.color){
+      this.props.dequeueSequenceBufferToValid();
     }else{
       this.props.endGame();
     }
@@ -32,17 +29,16 @@ export class Button extends React.Component {
       unlit = styles[`${color}Unlit`];
     
     return (
-          <View style={[styles.buttonContainer, styles[color]]}>
-            <TouchableOpacity  
-              style={[styles.touchable, unlit]}
-              onPress={() =>{
-                if(this.props.gameStart && this.props.isPlayerTurn)
-                  this.userInput(color);
-              }}
-            >
-              <Text style={{textAlign: 'center'}}></Text>
-            </TouchableOpacity >
-          </View>
+      <View style={[styles.buttonContainer, styles[color]]}>
+        <TouchableOpacity  
+          style={[styles.touchable, unlit]}
+          onPress={() =>{
+            if(this.props.gameStart && this.props.isPlayerTurn)
+              this.userInput(color);
+          }}
+        >
+        </TouchableOpacity >
+      </View>
     );
   }
 }
@@ -110,7 +106,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = {
   endGame,
-  dequeueSequenceBuffer
+  dequeueSequenceBufferToValid,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Button);

@@ -8,6 +8,7 @@ import {
   ADD_SEQUENCE_ITEM,
   REFRESH_SEQUENCE_BUFFER,
   DEQUEUE_SEQUENCE_BUFFER,
+  DEQUEUE_SEQUENCE_BUFFER_TO_VALID,
   SET_LIT_ITEM,
   UNSET_LIT_ITEM_DEQUEUE_BUFFER,
 } from '../actions/game';
@@ -30,19 +31,42 @@ const colorChoices = ['green', 'red', 'yellow', 'blue'];
 export function gameReducer(state=initialState, action){
   let newSequence = new Queue();
   let newSequenceBuffer= new Queue();
-  let newSequenceItem =  colorChoices[Math.floor(Math.random() * colorChoices.length)];
+
+  let newItemColor = colorChoices[Math.floor(Math.random() * colorChoices.length)];
+  let newItemSimonSaid = Math.random() < .7 ? true : false;
+
+  let newSequenceItem = {
+    color: newItemColor,
+    simonSaid: newItemSimonSaid
+  }  //colorChoices[Math.floor(Math.random() * colorChoices.length)];
+  
   let newCurScore;
   let newMaxScore;
   console.log('Reducer received action: ', action.type);
   switch(action.type){
 
     case RESET_GAME:
-      // for(let i = 0; i < 3; i++){
-      //   const idx = Math.floor(Math.random() * colorChoices.length);
-      //   newSequence.enqueue(colorChoices[i]); //TODO: CHANGE BACK TO idx
-      //   newSequenceBuffer.enqueue(colorChoices[i]); //TODO: CHANGE BACK TO idx
-      // }
+      newSequenceItem.simonSaid = true;
+      newSequence.enqueue(newSequenceItem);
+      newSequenceBuffer.enqueue(newSequenceItem);
 
+      //FOR TESTING
+      let newSeq2 = {}
+      newSeq2.color = 'red';
+      newSeq2.simonSaid = false;
+      newSequence.enqueue(newSeq2);
+      newSequenceBuffer.enqueue(newSeq2);
+      
+      let newSeq3 = {}
+      newSeq3.color = 'green';
+      newSeq3.simonSaid = true;
+      newSequence.enqueue(newSeq3);
+      newSequenceBuffer.enqueue(newSeq3);
+      
+      
+
+
+      //
       return {...state,
         gameStart: true,
         gameLost: false,
@@ -91,6 +115,17 @@ export function gameReducer(state=initialState, action){
     case DEQUEUE_SEQUENCE_BUFFER:
       newSequenceBuffer.initFromArray(state.sequenceBuffer.viewQueue());
       newSequenceBuffer.dequeue();
+      return {...state,
+              sequenceBuffer: newSequenceBuffer
+      }
+
+      
+    case DEQUEUE_SEQUENCE_BUFFER_TO_VALID:
+      newSequenceBuffer.initFromArray(state.sequenceBuffer.viewQueue());
+      newSequenceBuffer.dequeue();
+      while(newSequenceBuffer.front() && !newSequenceBuffer.front().simonSaid){
+        newSequenceBuffer.dequeue();
+      }
       return {...state,
               sequenceBuffer: newSequenceBuffer
       }

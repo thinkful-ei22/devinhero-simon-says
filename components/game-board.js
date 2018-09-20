@@ -28,7 +28,7 @@ export class GameBoard extends React.Component {
         //simon is currently repeating the sequence
         if(!this.props.litItem){
           const nextItem = this.props.nextBufferItem;
-          setTimeout(()=> this.props.setLitItem(nextItem), 100);
+          setTimeout(()=> this.props.setLitItem(nextItem.color), 100);
         }else{
           setTimeout(()=> this.props.unsetLitItemDequeueBuffer(), 550);
         }

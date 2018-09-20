@@ -34,6 +34,11 @@ export const dequeueSequenceBuffer = () =>({
   type: DEQUEUE_SEQUENCE_BUFFER
 });
 
+export const DEQUEUE_SEQUENCE_BUFFER_TO_VALID = 'DEQUEUE_SEQUENCE_BUFFER_TO_VALID';
+export const dequeueSequenceBufferToValid = () =>({
+  type: DEQUEUE_SEQUENCE_BUFFER_TO_VALID
+});
+
 export const SET_LIT_ITEM = 'SET_LIT_ITEM';
 export const setLitItem = color =>({
   type: SET_LIT_ITEM,

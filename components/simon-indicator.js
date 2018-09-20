@@ -24,7 +24,8 @@ export class SimonIndicator extends React.Component{
       litStatus = unlit;
     }else if(this.props.isSimonReading){
       simonText = 'Simon\nSays...';
-      litStatus = this.props.litItem ? lit : unlit;
+      litStatus = this.props.litItem && this.props.sequenceBuffer.front().simonSaid 
+        ? lit : unlit;
     }else{
       simonText = 'Your\nTurn!';
       litStatus = lit;
