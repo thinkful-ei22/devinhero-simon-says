@@ -32,6 +32,8 @@ export class Main extends React.Component {
           }}
         />
         <GameBoard/>
+        <Text>Current Score: {this.props.curScore}</Text>
+        <Text>Max Score: {this.props.maxScore}</Text>
       </View>
     );
   }
@@ -48,10 +50,8 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = state => {
   return{
-    sequence: state.sequence.viewQueue(),
-    seqBuffer: state.sequenceBuffer.viewQueue(),
-    gameStart: state.gameStart,
-    gameLost: state.gameLost
+    curScore: state.curScore,
+    maxScore: state.maxScore
   };
 };
 

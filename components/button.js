@@ -40,7 +40,7 @@ export class Button extends React.Component {
                   this.userInput(color);
               }}
             >
-              <Text style={{textAlign: 'center'}}>{color}</Text>
+              <Text style={{textAlign: 'center'}}></Text>
             </TouchableOpacity >
           </View>
     );

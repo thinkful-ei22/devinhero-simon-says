@@ -3,7 +3,8 @@ import { StyleSheet, View } from 'react-native';
 import {connect} from 'react-redux';
 
 import {
-  setIsSimonReading,
+  setTurnSimon,
+  setTurnPlayer,
   refreshSequenceBuffer,
   dequeueSequenceBuffer,
   setLitItem,
@@ -19,7 +20,9 @@ export class GameBoard extends React.Component {
   componentDidUpdate(prevProps){
     if(this.props.gameStart){
 
+      //SIMON TURN
       if(!prevProps.isSimonReadingSequence && this.props.isSimonReadingSequence){
+        //swap from user turn to simon turn
         setTimeout(()=> this.props.refreshSequenceBuffer(), 200);
       }else if(this.props.isSimonReadingSequence && this.props.nextBufferItem){
         //simon is currently repeating the sequence
@@ -32,16 +35,17 @@ export class GameBoard extends React.Component {
       }else if(this.props.isSimonReadingSequence && !this.props.nextBufferItem){
         //simon set to repeat sequence, but has no more items. May need to wait for unlit to clear first
         if(!this.props.litItem){
-          this.props.setIsSimonReading(false);
+          this.props.setTurnPlayer();
         }
       }
 
+      //USER TURN
       if(prevProps.isSimonReadingSequence && !this.props.isSimonReadingSequence){
           this.props.refreshSequenceBuffer();
       }
       else if(!this.props.isSimonReadingSequence && !this.props.nextBufferItem){
         //currently set to user input, but user has repeated everything in buffer
-        this.props.setIsSimonReading(true);
+        this.props.setTurnSimon();
       }
 
     }
@@ -88,7 +92,8 @@ const mapStateToProps = state => {
 };
 
 const mapDispatchToProps = {
-  setIsSimonReading,
+  setTurnSimon,
+  setTurnPlayer,
   refreshSequenceBuffer,
   dequeueSequenceBuffer,
   setLitItem,

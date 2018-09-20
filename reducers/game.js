@@ -3,7 +3,8 @@ import Queue from '../utils/queue';
 import {
   RESET_GAME,
   END_GAME,
-  SET_IS_SIMON_READING,
+  SET_TURN_SIMON,
+  SET_TURN_PLAYER,
   ADD_SEQUENCE_ITEM,
   REFRESH_SEQUENCE_BUFFER,
   DEQUEUE_SEQUENCE_BUFFER,
@@ -14,6 +15,9 @@ import {
 const initialState = {
   gameStart: false,
   gameLost: false,
+
+  curScore: 0,
+  maxScore: 0,
   
   sequence: new Queue(),
   sequenceBuffer: new Queue(),
@@ -27,19 +31,22 @@ export function gameReducer(state=initialState, action){
   let newSequence = new Queue();
   let newSequenceBuffer= new Queue();
   let newSequenceItem =  colorChoices[Math.floor(Math.random() * colorChoices.length)];
-
+  let newCurScore;
+  let newMaxScore;
   console.log('Reducer received action: ', action.type);
   switch(action.type){
 
     case RESET_GAME:
-      for(let i = 0; i < 3; i++){
-        const idx = Math.floor(Math.random() * colorChoices.length);
-        newSequence.enqueue(colorChoices[i]); //TODO: CHANGE BACK TO idx
-        newSequenceBuffer.enqueue(colorChoices[i]); //TODO: CHANGE BACK TO idx
-      }
+      // for(let i = 0; i < 3; i++){
+      //   const idx = Math.floor(Math.random() * colorChoices.length);
+      //   newSequence.enqueue(colorChoices[i]); //TODO: CHANGE BACK TO idx
+      //   newSequenceBuffer.enqueue(colorChoices[i]); //TODO: CHANGE BACK TO idx
+      // }
+
       return {...state,
         gameStart: true,
         gameLost: false,
+        score: 0,
         sequence: newSequence,
         sequenceBuffer: newSequenceBuffer,
         isSimonReadingSequence: true
@@ -51,10 +58,21 @@ export function gameReducer(state=initialState, action){
               gameLost: true
       }
 
-    case SET_IS_SIMON_READING:
-      console.log('XXXXXXXXXXX new isReading:', action.isReading)
+    case SET_TURN_SIMON:
+      newCurScore = state.sequence.getLength();
+      newMaxScore = newCurScore > state.maxScore ? newCurScore : state.maxScore;
+      newSequence.initFromArray(state.sequence.viewQueue());
+      newSequence.enqueue(newSequenceItem);
       return {...state,
-              isSimonReadingSequence: action.isReading
+              sequence: newSequence,
+              isSimonReadingSequence: true,
+              curScore: newCurScore,
+              maxScore: newMaxScore
+      }
+
+    case SET_TURN_PLAYER:
+      return {...state,
+              isSimonReadingSequence: false
       }
 
     case ADD_SEQUENCE_ITEM:

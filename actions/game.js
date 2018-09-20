@@ -9,10 +9,14 @@ export const endGame = () =>({
   type: END_GAME
 });
 
-export const SET_IS_SIMON_READING = 'SET_IS_SIMON_READING';
-export const setIsSimonReading = isReading =>({
-  type: SET_IS_SIMON_READING,
-  isReading
+export const SET_TURN_SIMON = 'SET_TURN_SIMON';
+export const setTurnSimon = () =>({
+  type: SET_TURN_SIMON
+});
+
+export const SET_TURN_PLAYER = 'SET_TURN_PLAYER';
+export const setTurnPlayer = () =>({
+  type: SET_TURN_PLAYER
 });
 
 export const ADD_SEQUENCE_ITEM = 'ADD_SEQUENCE_ITEM';

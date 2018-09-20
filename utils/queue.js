@@ -34,6 +34,10 @@ class Queue{
   viewQueue(){
     return this.items;
   }
+
+  getLength(){
+    return this.items.length;
+  }
 }
 
 module.exports = Queue;
