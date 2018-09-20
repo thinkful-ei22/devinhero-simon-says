@@ -24,7 +24,7 @@ const initialState = {
   
   sequence: new Queue(),
   sequenceBuffer: new Queue(),
-  isSimonReadingSequence: true,
+  isSimonReadingSequence: false,
   litItem: null
 };
 

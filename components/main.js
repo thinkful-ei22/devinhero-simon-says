@@ -1,14 +1,9 @@
 import React from 'react';
 import { StyleSheet, View, Text, Button} from 'react-native';
-import GameBoard from './game-board';
 
-import {
-  endGame,
-  resetGame,
-  addSequenceItem,
-  refreshSequenceBuffer,
-  dequeueSequenceBuffer
-} from '../actions/game';
+import GameBoard from './game-board';
+import NewGameButton from './new-game-button';
+
 import {connect} from 'react-redux';
 
 export class Main extends React.Component {
@@ -18,21 +13,16 @@ export class Main extends React.Component {
   }
 
   render() {
-    console.log('\n\n========================================\n');
-    console.log('Hello squirrels');
-    console.log(this.props);
+    // console.log('\n\n========================================\n');
+    // console.log('Hello squirrels');
+    // console.log(this.props);
 
     return (
       <View style={styles.container}> 
         <View>
           <Text>Simon Says</Text>
         </View>
-        <Button 
-          title='New Game'
-          onPress={()=>{
-            this.props.resetGame();
-          }}
-        />
+        <NewGameButton/>
         <GameBoard/>
         <Text>Current Score: {this.props.curScore}</Text>
         <Text>Max Score: {this.props.maxScore}</Text>
@@ -54,17 +44,12 @@ const mapStateToProps = state => {
   return{
     curScore: state.curScore,
     maxScore: state.maxScore,
-
-    everything: state
+    
+    // everything: state
   };
 };
 
 const mapDispatchToProps = {
-  endGame,
-  resetGame,
-  addSequenceItem,
-  refreshSequenceBuffer,
-  dequeueSequenceBuffer
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Main);

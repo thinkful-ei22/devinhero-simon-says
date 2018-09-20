@@ -25,21 +25,18 @@ export class GameBoard extends React.Component {
 
       //SIMON TURN
       if(!prevProps.isSimonReadingSequence && this.props.isSimonReadingSequence){
-        //swap from user turn to simon turn
         setTimeout(()=> this.props.refreshSequenceBuffer(), 200);
+      
       }else if(this.props.isSimonReadingSequence && this.props.nextBufferItem){
-        //simon is currently repeating the sequence
         if(!this.props.litItem){
           const nextItem = this.props.nextBufferItem;
           setTimeout(()=> this.props.setLitItem(nextItem.color), 100);
         }else{
           setTimeout(()=> this.props.unsetLitItemDequeueBuffer(), 550);
         }
+
       }else if(this.props.isSimonReadingSequence && !this.props.nextBufferItem){
-        //simon set to repeat sequence, but has no more items. May need to wait for unlit to clear first
-        if(!this.props.litItem){
-          this.props.setTurnPlayer();
-        }
+        this.props.setTurnPlayer();
       }
 
       //USER TURN
@@ -47,7 +44,6 @@ export class GameBoard extends React.Component {
         this.props.refreshSequenceBuffer();
       }
       else if(!this.props.isSimonReadingSequence && !this.props.nextBufferItem){
-        //currently set to user input, but user has repeated everything in buffer
         this.props.setTurnSimon();
       }
     }
