@@ -30,8 +30,10 @@ export class Main extends React.Component {
         </View>
         <View>
           <View style={styles.scoreboard}>
-            <View><Text>Score: {this.props.curScore}</Text></View>
-            <View><Text>Best: {this.props.maxScore}</Text></View>
+            {/* <View><Text>Score: {this.props.curScore}</Text></View>
+            <View><Text>Best: {this.props.maxScore}</Text></View> */}
+            <Text style={styles.scoreboardItem}>Score: {this.props.curScore}</Text>
+            <Text style={styles.scoreboardItem}>Best: {this.props.maxScore}</Text>
           </View>
         </View>
       </View>
@@ -42,7 +44,7 @@ export class Main extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#666666',
+    backgroundColor: '#AAAAAA',
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -56,11 +58,12 @@ const styles = StyleSheet.create({
     // flex: 1
   },
   scoreboard: {
+    width: 250,
     flexDirection: 'row',
     justifyContent: 'space-between'
   },
   scoreboardItem:{
-    height: 20
+    fontSize: 18
   }
 });
 
