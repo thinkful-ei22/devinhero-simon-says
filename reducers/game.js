@@ -35,7 +35,7 @@ export function gameReducer(state=initialState, action){
   let newSequenceBuffer= new Queue();
 
   let newItemColor = colorChoices[Math.floor(Math.random() * colorChoices.length)];
-  let newItemSimonSaid = Math.random() < .7 ? true : false;
+  let newItemSimonSaid = Math.random() < .85 ? true : false;
 
   let newSequenceItem = {
     color: newItemColor,
