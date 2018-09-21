@@ -20,7 +20,7 @@ export class Main extends React.Component {
     return (
       <View style={styles.container}> 
         <View style={styles.containerChild}>
-          <Text>Simon Says</Text>
+          <Text style={styles.title}>Simon Says</Text>
         </View>
         <View style={styles.containerChild}>
           <NewGameButton/>
@@ -42,13 +42,22 @@ export class Main extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: '#666666',
     alignItems: 'center',
     justifyContent: 'center',
   },
+  containerChild:{
+    margin: 10
+  },
+  title:{
+    fontSize: 22
+  },
+  containerBoard:{
+    // flex: 1
+  },
   scoreboard: {
     flexDirection: 'row',
-    // justifyContent: 'space-between'
+    justifyContent: 'space-between'
   },
   scoreboardItem:{
     height: 20
